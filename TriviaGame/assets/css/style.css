@@ -1,2 +1,4 @@
-.input {float:left; width:20px;}
-
+body {width:980px; margin:auto;background-color: aliceblue;margin-top:150px;}
+#start, #end{width:100%;text-align:center;border:1px solid;height:500px;box-shadow: 10px 10px 5px #888888;}
+#mid{width:100%; text-align:center;box-shadow: 10px 10px 5px #888888;}
+.myQ {width:49%; display:block; float:left;border:1px solid #f1f1f1;}

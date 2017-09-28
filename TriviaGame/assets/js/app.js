@@ -3,7 +3,7 @@ $(document).ready(function(){
     $('#mid').hide();
     $('#end').hide();
     clearInterval(intervalId);
-    var number = 10;
+    var number = 1000;
     var intervalId;
 
 $("#str_btn").on("click", function(){
@@ -100,7 +100,7 @@ function showQuestions(){
       		myQuestions[i].answers[alp]+'</label>');
     	}
     ques = myQuestions[i].question;
-     show.push('<h3>'+ques+'</h3>'+ '<div>' + quiz + '</div>');
+     show.push('<div class="myQ" >'+'<span>'+'<h3>'+ques+'</h3>'+ '</span>'+'<br>' + '<span>' + quiz + '</span>' + '</div>');
     }
 
 $("#questions").html(show);

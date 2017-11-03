@@ -76,6 +76,7 @@ function lowInv() {
 
 function addInv() {
     var newAmount;
+    var newInvt=0;
     connection.query("SELECT * FROM products", function(err, res){
         if(err)throw err;
         inquirer.prompt([{
@@ -85,22 +86,18 @@ function addInv() {
         }, {
             name: "amountAdd",
             type: "input",
-            message: "How many do you want to add?"
+            message: "How many does it have now?"
         }]).then(function(ans){
             for (var i = 0; i < res.length; i++) {
                 if (res[i].id == ans.productIdN) {
                     newAmount = res[i];
-                    console.log(newAmount.stock_quantity);
-                    console.log("+");
-                    console.log(ans.amountAdd);
-                    console.log("==============");
                 }
             }
             connection.query("UPDATE products SET ? WHERE ?", [
                 {stock_quantity: ans.amountAdd},{id: ans.productIdN}], //why can't i just use varPick.id ans.productIdN?
                 function(err, res) {
                 if(err)throw err;
-                console.log("added");
+                console.log("inventory amount changed");
             })
 connection.end();
         })

@@ -2,40 +2,22 @@ var mysql = require("mysql");
 var inquirer = require("inquirer");
 
 var connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "12345",
-  database: "bamazon"
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: "12345",
+    database: "bamazon"
 });
 
-connection.connect(function(err){
-    if(err) throw err;
-    showAll();
-});
 
-function showAll(){
-    connection.query("SELECT * FROM products", function (err, results){
-        if(err)throw err;
-        
-console.log("---------------------------------------------");
-        for (var i = 0; i < results.length; i++) {
-            console.log("Id: " +results[i].id + " -- " + results[i].product_name+ " -- "
-                + results[i].department_name + " -- " + results[i].price + "--" + results[i].stock_quantity);
-        }
-    });
-}
-
-connection.query("SELECT * FROM bamazon.products;", function(err, results){
-	if (err) throw err;
-  /*  console.log(results);*/
-    begin();
-});
+begin();
 
 function begin(){
+    showAll();
     var loc = "SELECT*FROM bamazon.products";
     var myuserReq;
 connection.query(loc, function(err, results){
+    if(err) throw err;
 inquirer.prompt([
     {
       name: "id",
@@ -52,23 +34,23 @@ inquirer.prompt([
             myuserReq = results[i];
                 
             if(results[i].stock_quantity < userReq.quantity){
-               console.log("not enough to sell");
+               console.log("We out, stop asking");
                 begin();
-                showAll();
                }else if(results[i].stock_quantity >= userReq.quantity){
             price(userReq.quantity, myuserReq.price );
-            quanUpdate(results[i].stock_quantity, userReq.quantity, userReq.id);
+            purchase(results[i].stock_quantity, userReq.quantity, userReq.id);       
                }    
         }
-    }connection.end();
-})
-})
+    }
+  })
+ })
 };
+
 function price(quan, p){
     var total = quan * p;
-    console.log(p);
-    console.log(quan);
-        console.log("Your price is: " + total);
+    console.log("each cost $"+p);
+    console.log("you want to buy this " +quan+ "many");
+    console.log("Your TOTAL is: $" + total);
 };
 
 var newQuan=0;
@@ -81,4 +63,32 @@ function quanUpdate(a, b, c){
             if(err)throw err;
         console.log("purchase complete");
         })
+    connection.end();
+};
+
+function showAll(){
+    connection.query("SELECT * FROM products", function (err, results){
+        if(err)throw err;
+        
+console.log("---------------------------------------------");
+        for (var i = 0; i < results.length; i++) {
+            console.log("Id: " +results[i].id + " -- " + results[i].product_name+ " -- "
+                + results[i].department_name + " -- " + results[i].price + "-- " + results[i].stock_quantity);
+        }
+    });
+}
+
+function purchase(a, b, c){
+    inquirer.prompt([{
+      name: "yesorno",
+      type: "rawlist",
+      message: "Do you want to make this purchase?",
+      choices: ["YES", "NO"]
+    }]).then(function(ans){
+        if(ans.yesorno.toUpperCase() === "YES"){
+            quanUpdate(a, b, c);
+        } else {
+            begin();
+        }
+    });
 };

@@ -57,9 +57,14 @@ function lowInv() {
         for (var i = 0; i < res.length; i++) {
             if (res[i].stock_quantity <= 5) {
                 lowInvList.push(res[i]);
-                console.log(lowInvList);
-            }
+            }                
         }
+        for( var i = 0 ; i < lowInvList.length ; i++){
+        console.log("Id: " + lowInvList[i].id + " -- " +
+                lowInvList[i].product_name + " -- " +
+                lowInvList[i].department_name + " -- " +
+                lowInvList[i].price + " -- " +
+                lowInvList[i].stock_quantity);}
     })
     connection.end();
 };

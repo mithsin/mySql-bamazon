@@ -31,15 +31,6 @@ function manage() {
                     addNewProduct();
                     break;
             }
-/*        if(ans.manage === "Product for sale"){
-            forSale();
-        }else if (ans.manage === "Low Inventory"){
-            lowInv();
-        }else if (ans.manage === "Add to Inventory"){
-            addInv();
-        }else if (ans.manage === "Add New Product"){
-            addNewProduct();
-        }*/
   })
 };
 
@@ -76,7 +67,7 @@ function lowInv() {
 
 function addInv() {
     var newAmount;
-    var newInvt=0;
+    var newInvt;
     connection.query("SELECT * FROM products", function(err, res){
         if(err)throw err;
         inquirer.prompt([{
@@ -91,10 +82,12 @@ function addInv() {
             for (var i = 0; i < res.length; i++) {
                 if (res[i].id == ans.productIdN) {
                     newAmount = res[i];
+                  newInvt = parseInt(res[i].stock_quantity) + parseInt(ans.amountAdd);
+                    console.log(newInvt);
                 }
             }
             connection.query("UPDATE products SET ? WHERE ?", [
-                {stock_quantity: ans.amountAdd},{id: ans.productIdN}], //why can't i just use varPick.id ans.productIdN?
+                {stock_quantity: newInvt},{id: ans.productIdN}],    
                 function(err, res) {
                 if(err)throw err;
                 console.log("inventory amount changed");
@@ -138,3 +131,6 @@ function addNewProduct(){
         })
     })
 };
+
+
+

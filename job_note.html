@@ -1,0 +1,50 @@
+,splice, indexOf, map, .pop, .map, .substr(), .charAt()
+factorialize a number:
+num * factorialize(num-1);
+check palindromes: word or sentence that’s spelled the same way both forward and backward
+//replace all non-alphanumeric characters(/ /) mean within, g = global, \w = non-alphanumeric
+str.replace(/[\w]/g, ‘’)
+Palindromes:
+Str.replace(/\w/g, ‘’) === str.replace(/\w/g, ‘’).split(‘’).reverse().join(‘’);
+Sort array:
+Var arr = [5, 86, 8, 12,32];
+arr.sort(function(a,b){return a-b}); 5,8,12,32,86
+arr.sort(function(a,b){return b-a});86,32,12,8,5
+split(), reverse(), join(), tolowercase(), touppercase(),
+Slice(begin, end); or .slice(begin);
+
+Notes:
+Docker vs GCP (google cloud plaftform)
+Cassandra vs mySQL
+Closure – JS
+Queues vs Stacks
+
+Primerly key vs foreign key
+    - primerly key: identify uniquely every row it can not be null. it can not be a dulplicate
+    - Foreign key: create relationship between two tables. can be null and can be a duplictae.
+
+identified.
+Link list vs Array
+    - Array: size is limited and assume every element are the same. size: restricted to declaration 
+    - Link list: can store different sizes of data. Size: dynamic by nature
+
+Get Vs Post: 
+    - Get intended to retrieve some data without any side-effect
+    - Post: it submit data to be process and it may result creating or update resources.
+4 API Key: Create, Delete, Get, Post
+VM vs Containers
+
+
+
+
+function titleCase(str) {
+  var stra = str.split(' ');
+  for (var i=0 ; i<stra.length; i++){
+   var strab = [];
+   var strabc = stra[i].chartAt[0].toUpperCase() + stra[i].slice[1].toLowercase();
+   strabc.append(strab); 
+    return strab;
+  }
+}
+
+titleCase("I'm a little tea pot");
